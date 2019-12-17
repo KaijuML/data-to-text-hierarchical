@@ -1,0 +1,5 @@
+experiments/
+data/rotowire/
+*.txt
+__pycache__/
+.ipynb_checkpoints/
