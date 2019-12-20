@@ -11,6 +11,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     folder = pkg_resources.resource_filename(__name__, 'experiments')
+    
+    if not os.path.exists(folder):
+        print("Creating a folder 'experiments/' where all experiments will be stored.")
+    
     folder = os.path.join(folder, args.name)
     
     if os.path.exists(folder):
@@ -22,4 +26,6 @@ if __name__ == '__main__':
     os.mkdir(os.path.join(folder, 'gens'))
     os.mkdir(os.path.join(folder, 'gens', 'test'))
     os.mkdir(os.path.join(folder, 'gens', 'valid'))
+    
+    print(f'Experiment {args.name} created.')
     
