@@ -1,6 +1,6 @@
 # Data-to-Text-Hierarchical
 
-Code for A Hierarchical Model for Data-to-Text (pre-print soon on arXiv) (Rebuffel, Soulier, Scoutheeten, Gallirani; ECIR 2020); most of this code is based on [OpenNMT](https://github.com/OpenNMT/OpenNMT-py).
+Code for [A Hierarchical Model for Data-to-Text](https://arxiv.org/abs/1912.10011) (Rebuffel, Soulier, Scoutheeten, Gallirani; ECIR 2020); most of this code is based on [OpenNMT](https://github.com/OpenNMT/OpenNMT-py).
 
 You will need a recent python (3.6+) to use it as is, especially OpenNMT. However I guess files could be tweaked to work with older pythons.
 
