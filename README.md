@@ -1,4 +1,4 @@
-# Data-to-Text-Hierarchical
+# Data-to-Text-Hierarchical [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/a-hierarchical-model-for-data-to-text/data-to-text-generation-on-rotowire)](https://paperswithcode.com/sota/data-to-text-generation-on-rotowire?p=a-hierarchical-model-for-data-to-text)
 
 Code for [A Hierarchical Model for Data-to-Text Generation](https://arxiv.org/abs/1912.10011) (Rebuffel, Soulier, Scoutheeten, Gallirani; ECIR 2020); most of this code is based on [OpenNMT](https://github.com/OpenNMT/OpenNMT-py).
 
