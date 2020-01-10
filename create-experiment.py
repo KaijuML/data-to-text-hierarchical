@@ -14,6 +14,7 @@ if __name__ == '__main__':
     
     if not os.path.exists(folder):
         print("Creating a folder 'experiments/' where all experiments will be stored.")
+        os.mkdir(folder)
     
     folder = os.path.join(folder, args.name)
     

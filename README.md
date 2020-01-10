@@ -27,7 +27,6 @@ At this stage, your repository should look like this:
 ```
 .
 ├── onmt/                   	# Most of the heavy-lifting is done by onmt
-├── experiments/            	# Experiments are stored here
 ├── data/   					# Dataset is here    
 │	├── rotowire/				# Raw data stored here
 ├	├── make-dataset.py			# formating script
