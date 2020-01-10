@@ -16,6 +16,7 @@ The dataset used in the paper can be downloaded [here](https://github.com/harvar
 cd data
 wget https://github.com/harvardnlp/boxscore-data/raw/master/rotowire.tar.bz2
 tar -xvjf rotowire.tar.bz2
+cd ..
 ```
 
 You'll need to format the dataset so that it can be preprocessed by OpenNMT.
@@ -61,7 +62,7 @@ At this stage, your repository should look like this:
 Before training models via OpenNMT, you must preprocess the data. I've handled all useful parameters with a config file. Please check it out if you want to tweak things, I have tried to include comments on each command. For futher info you can always check out the OpenNMT [preprocessing doc](http://opennmt.net/OpenNMT-py/options/preprocess.html)
 
 ```
-python preprocess --config preprocess.cfg
+python preprocess.py --config preprocess.cfg
 ```
 
 At this stage, your repository should look like this:
