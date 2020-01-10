@@ -13,7 +13,7 @@ from onmt.encoders import str2enc
 
 from onmt.decoders import str2dec
 
-from onmt.modules import Embeddings, VecEmbedding, CopyGenerator, TableEmbeddings
+from onmt.modules import Embeddings, CopyGenerator, TableEmbeddings
 from onmt.modules.util_class import Cast
 from onmt.utils.misc import use_gpu
 from onmt.utils.logging import logger
@@ -27,7 +27,6 @@ def build_embeddings(opt, text_field, for_encoder=True):
         text_field(TextMultiField): word and feats field.
         for_encoder(bool): build Embeddings for encoder or decoder?
     """
-    
     if opt.model_type == 'table' and for_encoder:
         emb_dim = opt.src_word_vec_size if for_encoder else opt.tgt_word_vec_size
         
@@ -59,15 +58,6 @@ def build_embeddings(opt, text_field, for_encoder=True):
     
     emb_dim = opt.src_word_vec_size if for_encoder else opt.tgt_word_vec_size
 
-    if opt.model_type == "vec" and for_encoder:
-        return VecEmbedding(
-            opt.feat_vec_size,
-            emb_dim,
-            position_encoding=opt.position_encoding,
-            dropout=(opt.dropout[0] if type(opt.dropout) is list
-                     else opt.dropout),
-        )
-
     pad_indices = [f.vocab.stoi[f.pad_token] for _, f in text_field]
     word_padding_idx, feat_pad_indices = pad_indices[0], pad_indices[1:]
 
@@ -77,7 +67,7 @@ def build_embeddings(opt, text_field, for_encoder=True):
     fix_word_vecs = opt.fix_word_vecs_enc if for_encoder \
         else opt.fix_word_vecs_dec
 
-    emb = Embeddings(
+    return Embeddings(
         word_vec_size=emb_dim,
         position_encoding=opt.position_encoding,
         feat_merge=opt.feat_merge,
@@ -91,7 +81,6 @@ def build_embeddings(opt, text_field, for_encoder=True):
         sparse=opt.optim == "sparseadam",
         fix_word_vecs=fix_word_vecs
     )
-    return emb
 
 
 def build_encoder(opt, embeddings):
@@ -101,12 +90,14 @@ def build_encoder(opt, embeddings):
         opt: the option in current environment.
         embeddings (Embeddings): vocab embeddings for this encoder.
     """
-    enc_type = opt.encoder_type if opt.model_type in ["text", "table"] \
-        or opt.model_type == "vec" else opt.model_type
+    if opt.model_type in ["text", "table"]:
+        enc_type = opt.encoder_type 
+    else: 
+        enc_type = opt.model_type
     return str2enc[enc_type].from_opt(opt, embeddings)
 
 
-def build_decoder(opt, embeddings):
+def build_decoder(opt, embeddings, dims=None):
     """
     Various decoder dispatcher function.
     Args:
@@ -115,6 +106,8 @@ def build_decoder(opt, embeddings):
     """
     dec_type = "ifrnn" if opt.decoder_type == "rnn" and opt.input_feed \
                else opt.decoder_type
+    if dims is not None:
+        return str2dec[dec_type].from_opt(opt, embeddings, dims)
     return str2dec[dec_type].from_opt(opt, embeddings)
 
 
@@ -162,14 +155,8 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
         the NMTModel.
     """
 
-    # for back compat when attention_dropout was not defined
-    try:
-        model_opt.attention_dropout
-    except AttributeError:
-        model_opt.attention_dropout = model_opt.dropout
-
     # Build embeddings.
-    if model_opt.model_type in ["text", "table"] or model_opt.model_type == "vec":
+    if model_opt.model_type in ["text", 'table']:
         src_field = fields["src"]
         src_emb = build_embeddings(model_opt, src_field)
     else:
@@ -177,6 +164,17 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
 
     # Build encoder.
     encoder = build_encoder(model_opt, src_emb)
+    
+    if isinstance(encoder.embeddings, TableEmbeddings):
+        if getattr(model_opt, 'use_pos', True):
+            dims = (
+                encoder.embeddings.embedding_size,
+                encoder.embeddings.pos_embeddings.embedding_dim
+            )
+        else:
+            dims = encoder.embeddings.embedding_size
+    else:
+        dims = None
 
     # Build decoder.
     tgt_field = fields["tgt"]
@@ -190,7 +188,7 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
 
         tgt_emb.word_lut.weight = src_emb.word_lut.weight
 
-    decoder = build_decoder(model_opt, tgt_emb)
+    decoder = build_decoder(model_opt, tgt_emb, dims)
 
     # Build NMTModel(= encoder + decoder).
     if gpu and gpu_id is not None:
@@ -260,8 +258,9 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
 
     model.generator = generator
     model.to(device)
-    if model_opt.model_dtype == 'fp16' and model_opt.optim == 'fusedadam':
+    if model_opt.model_dtype == 'fp16':
         model.half()
+
     return model
 
 
