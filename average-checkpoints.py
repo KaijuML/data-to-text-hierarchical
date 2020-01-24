@@ -11,7 +11,7 @@ def average_checkpoints(checkpoint_files):
     avg_model = None
     avg_generator = None
     
-    for i, checkpoint_file in checkpoint_files:
+    for i, checkpoint_file in enumerate(checkpoint_files):
         m = torch.load(checkpoint_file, map_location='cpu')
         model_weights = m['model']
         generator_weights = m['generator']
@@ -33,7 +33,7 @@ def average_checkpoints(checkpoint_files):
 def main():
     parser = argparse.ArgumentParser(description='This script merges checkpoints of the same model')
     parser.add_argument('--folder', dest="folder", help="experiment name")
-    parser.add_argument('--steps', dest="steps", nargs="+" help="checkpoints step numbers")
+    parser.add_argument('--steps', dest="steps", nargs="+", help="checkpoints step numbers")
     
     args = parser.parse_args()
     
@@ -45,4 +45,8 @@ def main():
     checkpoint_files = [os.path.join(model_folder, f'model_step_{step}.pt') for step in args.steps]
     
     avg_cp = average_checkpoints(checkpoint_files)
-    torch.save(avg_cp, os.path.join(model_folder, 'avg_model.cp'))    
+    torch.save(avg_cp, os.path.join(model_folder, 'avg_model.pt'))
+    
+    
+if __name__ == "__main__":
+    main()
