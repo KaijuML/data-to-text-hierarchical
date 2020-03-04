@@ -81,7 +81,7 @@ def get_player_idxs(entry):
     nplayers = len(entry['box_score']['PTS'])
     home_players, vis_players = list(), list()
     for i in range(nplayers):
-        player_city = nplayers = entry['box_score']['TEAM_CITY'][str(i)]
+        player_city = entry['box_score']['TEAM_CITY'][str(i)]
         if player_city == entry['home_city']:
             home_players.append(str(i))
         else:
