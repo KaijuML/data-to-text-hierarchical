@@ -70,8 +70,6 @@ class HierarchicalRNNDecoder(RNNDecoderBase):
         self.embeddings = embeddings
         self.dropout = torch.nn.Dropout(dropout)
         
-        hidden_size 
-        
         # Decoder state
         self.state = {}
 
