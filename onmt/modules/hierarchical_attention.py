@@ -204,7 +204,7 @@ class HierarchicalAttention(torch.nn.Module):
         #   - we flatten the scores again
         _check_for_nan(align_units, 'align units scores')  # sanity check (1)
         align_units = align_units.view(batch_size, -1, self.ent_size)
-        align_units = align_units.masked_fill_(units_mask, float('-inf'))
+        align_units.masked_fill_(units_mask, float('-inf'))
         _check_for_nan(align_units, 'align units scores filled with -inf')  # sanity check (2)
         
         # tricky block
@@ -215,7 +215,7 @@ class HierarchicalAttention(torch.nn.Module):
         align_units = self.attn_func(align_units, -1)  # softmax
         nan_mask = (align_units != align_units).sum(dim=2).ne(0)  # nan != nan
         if nan_mask.sum().item():
-            align_units = align_units.masked_fill(nan_mask.unsqueeze(-1), 0)
+            align_units.masked_fill_(nan_mask.unsqueeze(-1), 0)
         _check_for_nan(align_units, 'align units after attn_func')  # sanity check (3)
         
         # we flatten the scores again
