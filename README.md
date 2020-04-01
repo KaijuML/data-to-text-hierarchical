@@ -2,7 +2,7 @@
 
 Code for [A Hierarchical Model for Data-to-Text Generation](https://arxiv.org/abs/1912.10011) (Rebuffel, Soulier, Scoutheeten, Gallirani; ECIR 2020); most of this code is based on [OpenNMT](https://github.com/OpenNMT/OpenNMT-py).
 
-You will need a recent python (3.6+) to use it as is, especially OpenNMT. However I guess files could be tweaked to work with older pythons.
+You will need a recent python to use it as is, especially OpenNMT. However I guess files could be tweaked to work with older pythons. Please note that at the time of writting, torch==1.1.0 can be problematic with very recent version of python. I suggest running the code with python=3.6
 
 Full requirements can be found in `requirements.txt`. Note that they are not really all required, it's the full pip freeze of a clean conda virtual env, you can probably make it work with less.
 
