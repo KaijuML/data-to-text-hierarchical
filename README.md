@@ -6,7 +6,7 @@ UPDATE 11/03/2021: The original checkpoints used to produce results from the
 paper are officialy lost. However, I still have the actual model outputs, which 
 are now included in this repo. Simply `unzip outputs.zip`.
 
-Furthermore, [Radmill Raychev][1] and [Craig Thomson][2] from the University of Aberdeen 
+Furthermore, [Radmil Raychev][1] and [Craig Thomson][2] from the University of Aberdeen 
 are currently working with this repo, and have agreed to share their checkpoints.   
 Simply `tar -xvf htransformer.tar.gz2`.  
 You'll find the `data` used to train the model, as well as `*.cfg` files and
