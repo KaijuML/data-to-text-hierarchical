@@ -2,6 +2,26 @@
 
 Code for [A Hierarchical Model for Data-to-Text Generation](https://arxiv.org/abs/1912.10011) (Rebuffel, Soulier, Scoutheeten, Gallinari; ECIR 2020); most of this code is based on [OpenNMT](https://github.com/OpenNMT/OpenNMT-py).
 
+UPDATE 11/03/2021: The original checkpoints used to produce results from the 
+paper are officialy lost. However, I still have the actual model outputs, which 
+are now included in this repo. Simply `unzip outputs.zip`.
+
+Furthermore, [Radmill Raychev][1] and [Craig Thomson][2] from the University of Aberdeen 
+are currently working with this repo, and have agreed to share their checkpoints.   
+Simply `tar -xvf htransformer.tar.gz2`.  
+You'll find the `data` used to train the model, as well as `*.cfg` files and
+`*.pt` checkpoints. Note that the data is from [SportSett][3], which contains some 
+additional info (such as day of the week for instance).  
+(Also see [Thomson et al.][4] for more info regarding additional data)
+
+[1]: https://github.com/radmilr
+[2]: https://github.com/nlgcat
+[3]: https://github.com/nlgcat/sport_sett_basketball
+[4]: https://www.aclweb.org/anthology/2020.inlg-1.6/
+
+
+## Requirements
+
 You will need a recent python to use it as is, especially OpenNMT. However I guess files could be tweaked to work with older pythons. Please note that at the time of writting, torch==1.1.0 can be problematic with very recent version of python. I suggest running the code with python=3.6
 
 Full requirements can be found in `requirements.txt`. Note that they are not really all required, it's the full pip freeze of a clean conda virtual env, you can probably make it work with less.
