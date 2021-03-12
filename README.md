@@ -7,12 +7,19 @@ paper are officialy lost. However, I still have the actual model outputs, which
 are now included in this repo. Simply `unzip outputs.zip`.
 
 Furthermore, [Radmil Raychev][1] and [Craig Thomson][2] from the University of Aberdeen 
-are currently working with this repo, and have agreed to share their checkpoints.   
-Simply `tar -xvf htransformer.tar.gz2`.  
+are currently working with this repo, and have agreed to share their checkpoints,
+namely `htransformer.tar.gz2`.      
+These files files are handled with [git-lfs](https://git-lfs.github.com/) and will not
+be downloaded for users without it. This is done on purpose so that users can still clone
+this repo in a reasonable amount of time. Note that the file will appear there, but it's
+only a pointer and not an actual archive.
+
+Once it's downloaded, simply `tar -xvf htransformer.tar.gz2`.  
 You'll find the `data` used to train the model, as well as `*.cfg` files and
 `*.pt` checkpoints. Note that the data is from [SportSett][3], which contains some 
 additional info (such as day of the week for instance).  
-(Also see [Thomson et al.][4] for more info regarding additional data)
+(Also see [Thomson et al.][4] for more info regarding the impact of additional data
+on system performances.)
 
 [1]: https://github.com/radmilr
 [2]: https://github.com/nlgcat
