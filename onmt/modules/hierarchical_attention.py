@@ -222,7 +222,7 @@ class HierarchicalAttention(torch.nn.Module):
         align_units = align_units.view(batch_size, 1, -1)
         
         # Now the second level of attention, on the <ent> tokens
-        align_chunks.masked_fill_(chunk_mask, -1)
+        align_chunks.masked_fill_(chunk_mask, float('-inf'))
         align_chunks = self.attn_func(align_chunks, -1)
 #         align_chunks = sparsemax(align_chunks, -1)
         _check_for_nan(align_chunks, 'align_chunks after attn_func')
