@@ -131,14 +131,22 @@ Now you can simply translate the test input by running:
 
 # Evaluation
 
-Evaluation metrics can be download at the [orignial repo](https://github.com/harvardnlp/data2text). You can follow instructions there to get the CS, RG and CO scores. Please note that I had issue running the code (mostly due to unmaintained torch repo). If it's not me, and you also run in some issues let me know and I'll try to help.
+RG, CS and CO metrics were originaly ([see here](https://github.com/harvardnlp/data2text)) coded in Lua and python2.
+Because of compatibility issues with modern hardware, I have re-implemented RG
+in PyTorch and python3:
 
-You can evaluate the BLEU score using [SacreBLEU](https://github.com/mjpost/sacreBLEU) from [Post, 2018](aclweb.org/anthology/W18-6319). See the repo for installation, it should be a breeze with pip.
+Follow instructions at: [KaijuML/rotowire-rg-metric](https://github.com/KaijuML/rotowire-rg-metric). 
+
+You can evaluate the BLEU score using [SacreBLEU](https://github.com/mjpost/sacreBLEU)
+from [Post, 2018](aclweb.org/anthology/W18-6319). 
+See the repo for installation, it should be a breeze with pip.
 
 You can get the BLEU score by running:
 
 `cat experiments/exp-1/gens/test/predictions.txt | sacrebleu --force data/test_output.txt`
 
-(Note that --force is not required as it doesn't change the score computation, it just suppresses a warning because this dataset is always tokenized)
+(Note that --force is not required as it doesn't change the score computation, 
+it just suppresses a warning because this dataset is already tokenized)
 
-Alternatively you can use any prefered method for BLEU computation. I have also checked scoring models with [NLTK](aclweb.org/anthology/W18-6319) and scores were virtually the same.
+Alternatively you can use any prefered method for BLEU computation. 
+I have also checked scoring models with [NLTK](aclweb.org/anthology/W18-6319) and scores were virtually the same.
