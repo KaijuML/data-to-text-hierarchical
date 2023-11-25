@@ -4,7 +4,7 @@ bleach==3.3.0
 certifi==2019.11.28
 cffi==1.13.2
 chardet==3.0.4
-ConfigArgParse==0.14.0
+ConfigArgParse
 cycler==0.10.0
 decorator==4.4.1
 defusedxml==0.6.0
@@ -17,7 +17,7 @@ ipython-genutils==0.2.0
 ipywidgets==7.5.1
 jedi==0.15.1
 Jinja2==2.11.3
-json5==0.8.5
+json5
 jsonschema==3.2.0
 jupyter==1.0.0
 jupyter-client==5.3.4
@@ -47,7 +47,7 @@ Pygments==2.7.4
 pyparsing==2.4.5
 pyrsistent==0.15.6
 python-dateutil==2.8.1
-PyYAML==5.4
+PyYAML
 pyzmq==18.1.1
 qtconsole==4.6.0
 requests==2.22.0
@@ -56,7 +56,7 @@ simplejson==3.17.0
 six==1.13.0
 terminado==0.8.3
 testpath==0.4.4
-torch==1.1.0
+torch
 torchtext==0.4.0
 tornado==6.0.3
 tqdm==4.40.2

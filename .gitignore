@@ -1,8 +1,9 @@
+data/
 experiments/
-data/rotowire/
 *.txt
 __pycache__/
 .ipynb_checkpoints/
 *.pyc
 *.bz2
 *.tar
+*.DS_Store
