@@ -2,7 +2,7 @@ attrs==19.3.0
 backcall==0.1.0
 bleach==3.3.0
 certifi==2019.11.28
-cffi==1.13.2
+cffi
 chardet==3.0.4
 ConfigArgParse
 cycler==0.10.0
@@ -40,7 +40,7 @@ parso==0.5.2
 pexpect==4.7.0
 pickleshare==0.7.5
 prometheus-client==0.7.1
-prompt-toolkit==2.0.10
+prompt-toolkit
 ptyprocess==0.6.0
 pycparser==2.19
 Pygments==2.7.4
