@@ -73,7 +73,7 @@ class MultiHeadSelfAttention(torch.nn.Module):
 
         # self-attention
         q, k, v = F.linear(input, self.in_proj_weight, self.in_proj_bias).chunk(3, dim=-1)
-        q *= self.scaling
+        q = q * self.scaling
         
         # Cut q, k, v in num_heads part
         q = q.contiguous().view(seq_len, bsz * self.num_heads, self.head_dim).transpose(0, 1)
