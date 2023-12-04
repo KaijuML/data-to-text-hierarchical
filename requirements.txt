@@ -6,6 +6,7 @@ cffi
 chardet
 ConfigArgParse
 cycler
+datasets
 decorator
 defusedxml
 entrypoints
