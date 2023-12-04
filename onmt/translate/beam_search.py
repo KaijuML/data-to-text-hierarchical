@@ -187,9 +187,10 @@ class BeamSearch(DecodeStrategy):
         torch.mul(self.topk_scores, length_penalty, out=self.topk_log_probs)
 
         # Resolve beam origin and map to batch index flat representation.
-        self._batch_index = torch.div(self.topk_ids, vocab_size, out=self._batch_index.float())
+        torch.div(self.topk_ids, vocab_size, out=self._batch_index.float())
         self._batch_index += self._beam_offset[:_B].unsqueeze(1)
         self.select_indices = self._batch_index.view(_B * self.beam_size)
+        print(self.select_indices.type())
         self.topk_ids.fmod_(vocab_size)  # resolve true word ids
 
         # Append last prediction.
