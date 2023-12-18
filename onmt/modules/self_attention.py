@@ -4,7 +4,6 @@ Custom reimplementation of torch.nn.MultiHeadAttention
 It's actually the same module, with more or less flewibility at times,
 and a more flexible use of the mask (different mask per element of the batch)
 """
-from torch._jit_internal import weak_module, weak_script_method
 from torch.nn.init import constant_
 from torch.nn.parameter import Parameter
 from torch.nn.init import xavier_uniform_
@@ -14,7 +13,6 @@ from onmt.modules import GatedLinear
 import torch
 
 
-@weak_module
 class MultiHeadSelfAttention(torch.nn.Module):
     """
     if glu_depth is not zero, we use GatedLinear layers instead of regular layers.
@@ -59,7 +57,6 @@ class MultiHeadSelfAttention(torch.nn.Module):
             constant_(self.in_proj_bias, 0.)
             constant_(self.out_proj.bias, 0.)
 
-    @weak_script_method
     def forward(self, input, attn_mask=None):
         """
         Inputs of forward function
@@ -76,7 +73,7 @@ class MultiHeadSelfAttention(torch.nn.Module):
 
         # self-attention
         q, k, v = F.linear(input, self.in_proj_weight, self.in_proj_bias).chunk(3, dim=-1)
-        q *= self.scaling
+        q = q * self.scaling
         
         # Cut q, k, v in num_heads part
         q = q.contiguous().view(seq_len, bsz * self.num_heads, self.head_dim).transpose(0, 1)
